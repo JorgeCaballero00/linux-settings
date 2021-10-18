@@ -1,14 +1,22 @@
+# Enable Powerlevel11k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="/home/development4/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+POWERLEVEL9K_MODE="nerdfont-complete"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -21,7 +29,7 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
- HYPHEN_INSENSITIVE="true"
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -65,36 +73,12 @@ ZSH_THEME="agnoster"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?G
+# Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions poetry)
-
-# Zsh-autosuggestions
-#bindkey '^ I'   complete-word       # tab          | complete
-#bindkey '^ [[Z' autosuggest-accept  # shift + tab  | autosuggest
-bindkey '\e[A' history-search-backward
-bindkey '\e[B' history-search-forward
-
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(buffer-empty bracketed-paste accept-line push-line-or-edit)
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_USE_ASYNC=true
-
-
-
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.7
-export WORKON_HOME=~/.virtualenvs
-source $HOME/.local/bin/virtualenvwrapper.sh
-
-
-export PATH="$HOME/bin:$HOME/.emacs.d/bin:$HOME/.poetry/bin:$PATH:/usr/local/go/bin:$HOME/go/bin"
-# Clean PATH variable
-export PATH=$(echo $PATH | awk -F: '
-{ for (i = 1; i <= NF; i++) arr[$i]; }
-END { for (i in arr) printf "%s:" , i; printf "\n"; } ')
-
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -122,5 +106,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="$HOME/bin:$PATH"
+#Virtualenvwrapper settings:
+export WORKON_HOME=$HOME/.virtualenv
+export PROJECT_HOME=$HOME/repo
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /home/development4/.local/bin/virtualenvwrapper.sh
+
+## import new aliases
+
 source $HOME/.aliases
-export DISABLE_AUTO_TITLE='true'
